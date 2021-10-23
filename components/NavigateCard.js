@@ -6,6 +6,7 @@ import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from "react-redux";
 import { setDestination } from "../slices/navSlice";
 import { useNavigation } from "@react-navigation/core";
+import NavFavorites from "./NavFavorites";
 
 const NavigateCard = () => {
   const dispatch = useDispatch(setDestination);
@@ -30,17 +31,17 @@ const NavigateCard = () => {
             }}
             enablePoweredByContainer={false}
             onPress={(data, details = null) => {
-              dispatch(
-                setDestination({
-                  location: details.geometry.location,
-                  description: data.description,
-                })
-              );
+              const destination = {
+                location: details.geometry.location,
+                description: data.description,
+              };
+              dispatch(setDestination(destination));
 
-              navigation.navigate("RideOptionsCard");
+              // navigation.navigate("RideOptionsCard");
             }}
           />
         </View>
+        <NavFavorites />
       </View>
     </SafeAreaView>
   );

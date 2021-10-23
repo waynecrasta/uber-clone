@@ -6,6 +6,7 @@ import { GOOGLE_MAPS_APIKEY } from "@env";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useDispatch } from "react-redux";
 import { setDestination, setOrigin } from "../slices/navSlice";
+import NavFavorites from "../components/NavFavorites";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -38,12 +39,11 @@ const HomeScreen = () => {
           returnKeyType={"search"}
           minLength={2}
           onPress={(data, details = null) => {
-            dispatch(
-              setOrigin({
-                location: details.geometry.location,
-                description: data.description,
-              })
-            );
+            const origin = {
+              location: details.geometry.location,
+              description: data.description,
+            };
+            dispatch(setOrigin(origin));
 
             dispatch(setDestination(null));
           }}
@@ -57,6 +57,8 @@ const HomeScreen = () => {
         />
 
         <NavOptions />
+
+        <NavFavorites />
       </View>
     </SafeAreaView>
   );

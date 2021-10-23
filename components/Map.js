@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useSelector } from "react-redux";
@@ -10,18 +10,43 @@ import { GOOGLE_MAPS_APIKEY } from "@env";
 const Map = () => {
   const origin = useSelector(selectOrigin);
   const destination = useSelector(selectDestination);
+  const mapRef = useRef(null);
 
+  useEffect(() => {
+    if (!origin || !destination) return;
+
+    mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
+      edgePadding: { top: 50, bottom: 50, right: 50, left: 50 },
+    });
+  }, [origin, destination]);
   return (
     <MapView
+      ref={mapRef}
       style={tw`flex-1`}
       initialRegion={{
         latitude: origin.location.lat,
         longitude: origin.location.lng,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0.1,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
       }}
       mapType={"mutedStandard"}
     >
+      {origin && destination && (
+        <MapViewDirections
+          origin={{
+            latitude: origin.location.lat,
+            longitude: origin.location.lng,
+          }}
+          destination={{
+            latitude: destination.location.lat,
+            longitude: destination.location.lng,
+          }}
+          strokeWidth={3}
+          strokeColor="black"
+          apikey={GOOGLE_MAPS_APIKEY}
+        />
+      )}
+
       {origin?.location && (
         <Marker
           coordinate={{
@@ -46,20 +71,6 @@ const Map = () => {
           pinColor="blue"
         />
       )}
-
-      <MapViewDirections
-        origin={{
-          latitude: origin.location.lat,
-          longitude: origin.location.lng,
-        }}
-        destination={{
-          latitude: destination.location.lat,
-          longitude: destination.location.lng,
-        }}
-        strokeWidth={3}
-        strokeColor="black"
-        apikey={GOOGLE_MAPS_APIKEY}
-      />
     </MapView>
   );
 };
