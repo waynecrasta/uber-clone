@@ -37,7 +37,7 @@ const NavigateCard = () => {
               };
               dispatch(setDestination(destination));
 
-              // navigation.navigate("RideOptionsCard");
+              navigation.navigate("RideOptionsCard");
             }}
           />
         </View>

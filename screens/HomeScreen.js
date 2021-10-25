@@ -57,8 +57,6 @@ const HomeScreen = () => {
         />
 
         <NavOptions />
-
-        <NavFavorites />
       </View>
     </SafeAreaView>
   );

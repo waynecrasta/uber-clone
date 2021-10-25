@@ -10,6 +10,7 @@ import { Icon } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { useDispatch } from "react-redux";
 import { setDestination } from "../slices/navSlice";
+import { useNavigation } from "@react-navigation/core";
 
 const NavFavorites = () => {
   const data = [
@@ -36,6 +37,7 @@ const NavFavorites = () => {
   ];
 
   const dispatch = useDispatch(setDestination);
+  const navigation = useNavigation();
 
   return (
     <FlatList
@@ -62,7 +64,7 @@ const NavFavorites = () => {
 
             dispatch(setDestination(destination));
 
-            // navigation.navigate("RideOptionsCard");
+            navigation.navigate("RideOptionsCard");
           }}
         >
           <Icon
