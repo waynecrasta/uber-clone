@@ -15,24 +15,24 @@ import { useNavigation } from "@react-navigation/core";
 const NavFavorites = () => {
   const data = [
     {
-      id: "123",
+      id: "home",
       icon: "home",
       location: "Home",
       coordinates: {
         lat: 37.78394814011524,
         lng: -122.4321002445078,
       },
-      destination: "1489 Webster St, San Francisco, CA 94115",
+      description: "1489 Webster Street, San Francisco, CA, USA",
     },
     {
-      id: "456",
+      id: "work",
       icon: "briefcase",
       location: "Work",
       coordinates: {
         lat: 37.784553311888324,
         lng: -122.39721116666715,
       },
-      destination: "633 Folsom St, San Francisco, CA 94107",
+      description: "633 Folsom Street, San Francisco, CA, USA",
     },
   ];
 
@@ -53,13 +53,13 @@ const NavFavorites = () => {
           ]}
         />
       )}
-      renderItem={({ item: { location, icon, destination, coordinates } }) => (
+      renderItem={({ item: { location, icon, description, coordinates } }) => (
         <TouchableOpacity
           style={tw`flex-row items-center p-5`}
           onPress={() => {
             const destination = {
               location: coordinates,
-              description: destination,
+              description,
             };
 
             dispatch(setDestination(destination));
@@ -76,7 +76,7 @@ const NavFavorites = () => {
           />
           <View>
             <Text style={tw`font-semibold text-lg`}>{location}</Text>
-            <Text style={tw`text-gray-500`}>{destination}</Text>
+            <Text style={tw`text-gray-500`}>{description}</Text>
           </View>
         </TouchableOpacity>
       )}

@@ -18,19 +18,19 @@ const data = [
   {
     id: "uberx",
     title: "UberX",
-    multiplier: 1,
+    cost_multiplier: 1,
     image: "https://links.papareact.com/3pn",
   },
   {
     id: "uberxl",
     title: "Uber XL",
-    multiplier: 1.2,
+    cost_multiplier: 1.2,
     image: "https://links.papareact.com/5w8",
   },
   {
     id: "bluejay",
     title: "BlueJay",
-    multiplier: 0,
+    cost_multiplier: 0,
     image: "https://i.imgur.com/pCgKNjS.png",
   },
 ];
@@ -41,6 +41,8 @@ const RideOptionsCard = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
   const travelTimeInformation = useSelector(selectTravelTimeInformation);
+
+  console.log(travelTimeInformation);
 
   return (
     <SafeAreaView style={tw`bg-white flex-grow`}>
@@ -84,7 +86,7 @@ const RideOptionsCard = () => {
               }).format(
                 (travelTimeInformation?.duration.value *
                   SURGE_CHARGE_RATE *
-                  item.multiplier) /
+                  item.cost_multiplier) /
                   100
               )}
             </Text>
